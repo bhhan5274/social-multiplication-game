@@ -1,0 +1,6 @@
+body {
+  margin-top: 5rem;
+  height: 100vh;
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+}

@@ -1,0 +1,8 @@
+version: '2'
+services:
+  social-multiplication:
+    image: bhhan87/social-multiplication:v1.0
+    ports:
+      - "8000:8000"
+    environment:
+      MULTIPLICATION_SERVER_PORT: "8000"
