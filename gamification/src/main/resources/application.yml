@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8081
 
 spring:
   h2:
@@ -9,7 +9,8 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      show_sql: true
+      hibernate:
+        show_sql: true
   rabbitmq:
     host: localhost
     port: 5672
@@ -20,3 +21,8 @@ multiplication:
   exchange: multiplication_exchange
   solved:
     key: multiplication.solved
+  queue: gamification_multiplication_queue
+  anything:
+    routing-key: multiplication.*
+
+multiplicationHost: http://localhost:8000/

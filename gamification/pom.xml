@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <version>0.0.1-SNAPSHOT</version>
-    <artifactId>social-multiplication</artifactId>
+    <artifactId>gamification</artifactId>
     <packaging>jar</packaging>
 
     <properties>
-        <start-class>com.bhhan.multiplication.Application</start-class>
-        <docker.image.name>bhhan87/social-multiplication</docker.image.name>
+        <start-class>com.bhhan.gamification.Application</start-class>
+        <docker.image.name>bhhan87/gamification</docker.image.name>
         <docker.image.tag>v1.0</docker.image.tag>
     </properties>
 
@@ -25,16 +25,20 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
     </dependencies>
 

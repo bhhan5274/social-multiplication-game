@@ -3,6 +3,8 @@ package com.bhhan.multiplication.service;
 import com.bhhan.multiplication.domain.Multiplication;
 import com.bhhan.multiplication.domain.MultiplicationResultAttempt;
 import com.bhhan.multiplication.domain.User;
+import com.bhhan.multiplication.event.EventDispatcher;
+import com.bhhan.multiplication.event.MultiplicationSolvedEvent;
 import com.bhhan.multiplication.repository.MultiplicationResultAttemptRepository;
 import com.bhhan.multiplication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class MultiplicationServiceImpl implements MultiplicationService{
     private final RandomGeneratorService randomGeneratorService;
     private final MultiplicationResultAttemptRepository attemptRepository;
     private final UserRepository userRepository;
+    private final EventDispatcher eventDispatcher;
 
     @Override
     public Multiplication createRandomMultiplication() {
@@ -51,7 +54,18 @@ public class MultiplicationServiceImpl implements MultiplicationService{
                 .correct(isCorrect)
                 .build();
 
-        return attemptRepository.save(checkedAttempt);
+
+        final MultiplicationResultAttempt storedAttempt = attemptRepository.save(checkedAttempt);
+
+        eventDispatcher.send(
+                MultiplicationSolvedEvent.builder()
+                .multiplicationResultAttemptId(storedAttempt.getId())
+                .userId(storedAttempt.getUser().getId())
+                .correct(storedAttempt.isCorrect())
+                .build()
+        );
+
+        return storedAttempt;
     }
 
     @Override

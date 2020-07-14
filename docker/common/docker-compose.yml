@@ -3,6 +3,31 @@ services:
   social-multiplication:
     image: bhhan87/social-multiplication:v1.0
     ports:
-      - "8000:8000"
+      - 8000:8000
     environment:
-      MULTIPLICATION_SERVER_PORT: "8000"
+      MULTIPLICATION_SERVER_PORT: 8000
+      RABBITMQ_PORT: 5672
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USERNAME: bhhan
+      RABBITMQ_PASSWORD: 1234
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: bhhan
+      RABBITMQ_DEFAULT_PASS: 1234
+    ports:
+      - 5672:5672
+      - 15672:15672
+  gamification:
+    image: bhhan87/gamification:v1.0
+    ports:
+      - 8081:8081
+    environment:
+      GAMIFICATION_PORT: 8081
+      MULTIPLICATION_SERVER_PORT: 8000
+      RABBITMQ_PORT: 5672
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USERNAME: bhhan
+      RABBITMQ_PASSWORD: 1234
