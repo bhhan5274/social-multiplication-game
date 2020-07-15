@@ -1,4 +1,4 @@
-var SERVER_URL = "http://localhost:8000";
+var SERVER_URL = "http://localhost:9000/api";
 
 function updateMultiplication(){
     $.ajax({

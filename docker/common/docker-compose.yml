@@ -1,6 +1,20 @@
 version: '2'
 services:
-  social-multiplication:
+  service-registry:
+    image: bhhan87/service-registry:v1.0
+    ports:
+      - 8761:8761
+    environment:
+      EUREKA_SERVER_PORT: 8761
+  gateway:
+    image: bhhan87/gateway:v1.0
+    ports:
+      - 9000:9000
+    environment:
+      GATEWAY_SERVER_PORT: 9000
+      EUREKA_SERVER_PORT: 8761
+      EUREKA_SERVER_URI: "http://service-registry:8761/eureka/"
+  multiplication:
     image: bhhan87/social-multiplication:v1.0
     ports:
       - 8000:8000
@@ -10,6 +24,9 @@ services:
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_USERNAME: bhhan
       RABBITMQ_PASSWORD: 1234
+      EUREKA_SERVER_PORT: 8761
+      EUREKA_SERVER_URI: "http://service-registry:8761/eureka/"
+      GATEWAY_SERVER_PORT: 9000
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
@@ -31,3 +48,6 @@ services:
       RABBITMQ_HOST: rabbitmq
       RABBITMQ_USERNAME: bhhan
       RABBITMQ_PASSWORD: 1234
+      EUREKA_SERVER_PORT: 8761
+      EUREKA_SERVER_URI: "http://service-registry:8761/eureka/"
+      GATEWAY_SERVER_PORT: 9000

@@ -1,5 +1,7 @@
 package com.bhhan.gamification.service;
 
+import com.bhhan.gamification.client.MultiplicationResultAttemptClient;
+import com.bhhan.gamification.client.dto.MultiplicationResultAttempt;
 import com.bhhan.gamification.domain.BadgeCard;
 import com.bhhan.gamification.domain.GameStats;
 import com.bhhan.gamification.domain.ScoreCard;
@@ -32,6 +34,7 @@ public class GameServiceImpl implements GameService{
 
     private final ScoreCardRepository scoreCardRepository;
     private final BadgeCardRepository badgeCardRepository;
+    private final MultiplicationResultAttemptClient attemptClient;
 
     @Override
     public GameStats newAttemptForUser(Long userId, Long attemptId, boolean correct) {
@@ -98,6 +101,14 @@ public class GameServiceImpl implements GameService{
         if(scoreCardList.size() == 1 && !containsBadge(badgeCards, BadgeCard.Badge.FIRST_WON)){
             final BadgeCard firstWonBadge = giveBadgeToUser(BadgeCard.Badge.FIRST_WON, userId);
             badgeCards.add(firstWonBadge);
+        }
+
+        final MultiplicationResultAttempt attempt = attemptClient.retrieveMultiplicationResultAttemptById(attemptId);
+        if(!containsBadge(badgeCardList, BadgeCard.Badge.LUCKY_NUMBER) &&
+                (LUCKY_NUMBER == attempt.getMultiplicationFactorA()) ||
+                (LUCKY_NUMBER == attempt.getMultiplicationFactorB())){
+            final BadgeCard luckyNumberBadge = giveBadgeToUser(BadgeCard.Badge.LUCKY_NUMBER, userId);
+            badgeCards.add(luckyNumberBadge);
         }
 
         return badgeCards;

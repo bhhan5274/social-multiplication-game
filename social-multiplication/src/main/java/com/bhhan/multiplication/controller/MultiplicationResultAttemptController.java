@@ -44,6 +44,7 @@ public class MultiplicationResultAttemptController {
     @GetMapping("/{resultId}")
     @ResponseStatus(HttpStatus.OK)
     public MultiplicationResultAttempt getResultById(@PathVariable("resultId") Long resultId){
+        log.info("조회 결과 {} 조회한 서버 @ {}", resultId, serverPort);
         return multiplicationService.getResultById(resultId);
     }
 }

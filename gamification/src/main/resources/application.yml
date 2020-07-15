@@ -25,4 +25,4 @@ multiplication:
   anything:
     routing-key: multiplication.*
 
-multiplicationHost: http://localhost:8000/
+multiplicationHost: http://gateway/api/results/
