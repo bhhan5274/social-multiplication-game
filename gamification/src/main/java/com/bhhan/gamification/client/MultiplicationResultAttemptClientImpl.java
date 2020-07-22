@@ -1,6 +1,7 @@
 package com.bhhan.gamification.client;
 
 import com.bhhan.gamification.client.dto.MultiplicationResultAttempt;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,9 +23,14 @@ public class MultiplicationResultAttemptClientImpl implements MultiplicationResu
     @Value("${multiplicationHost}")
     private String multiplicationHost;
 
+    @HystrixCommand(fallbackMethod = "defaultResult")
     @Override
     public MultiplicationResultAttempt retrieveMultiplicationResultAttemptById(Long multiplicationResultAttemptId) {
         return restTemplate.getForObject(multiplicationHost + multiplicationResultAttemptId,
                 MultiplicationResultAttempt.class);
+    }
+
+    private MultiplicationResultAttempt defaultResult(Long multiplicationResultAttemptId){
+        return new MultiplicationResultAttempt("fakeAlias", 10, 10, 100, true);
     }
 }

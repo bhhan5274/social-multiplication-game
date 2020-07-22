@@ -28,4 +28,5 @@ java -Dserver.port=$GAMIFICATION_PORT \
  -Dspring.rabbitmq.username=$RABBITMQ_USERNAME \
  -Dspring.rabbitmq.password=$RABBITMQ_PASSWORD \
  -Deureka.client.serviceUrl.defaultZone=$EUREKA_SERVER_URI \
+ -Dspring.profiles.active=$PROFILE \
  -jar /usr/local/gamification/@project.build.finalName@.jar

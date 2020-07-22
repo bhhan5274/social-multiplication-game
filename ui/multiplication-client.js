@@ -18,6 +18,7 @@ function updateResults(alias) {
         url: SERVER_URL + "/results?alias=" + alias,
         async: false,
         success: function (data) {
+            console.log(data);
             $('#results-div').show();
             $('#results-body').empty();
             data.forEach(function (row) {

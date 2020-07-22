@@ -12,4 +12,5 @@ echo "******* Eureka server has started"
 
 java -Dserver.port=$GATEWAY_SERVER_PORT \
  -Deureka.client.serviceUrl.defaultZone=$EUREKA_SERVER_URI \
+ -Dspring.profiles.active=$PROFILE \
  -jar /usr/local/gateway/@project.build.finalName@.jar

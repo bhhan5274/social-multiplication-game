@@ -8,6 +8,7 @@
         <module>gamification</module>
         <module>gateway</module>
         <module>service-registry</module>
+        <module>test-e2e</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
